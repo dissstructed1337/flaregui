@@ -10,6 +10,15 @@ A lightweight CLI tool to tunnel localhost to the public web using Cloudflare Tu
 
 ---
 
+## Why FlareGUI over Ngrok?
+
+- **No Account/Registration Required**: Start tunneling instantly without signing up or managing auth tokens.
+- **No Interstitial Warning Screens**: Bypasses the annoying browser warning page shown on free Ngrok tunnels, making API/webhook testing seamless.
+- **No Rate Limits or Bandwidth Caps**: Backed by Cloudflare's global edge network with no limits on request volume or throughput.
+- **Free Security Options**: Set up secure tunnels with Basic Auth or use your own custom domains and tokens at no cost.
+
+---
+
 ## Features
 
 - **Zero Configuration**: Instantly exposes local ports to a public URL. No signup, registration, or accounts required.
@@ -81,6 +90,13 @@ If you want to contribute, modify the UI, or run directly from the source code:
 Легковесная CLI-утилита для туннелирования localhost в публичную сеть на базе Cloudflare Tunnels (trycloudflare) со встроенным инспектором HTTP-трафика. Бесплатная альтернатива Ngrok, работающая без регистрации.
 
 ---
+
+## Почему FlareGUI лучше Ngrok?
+
+- **Без регистрации**: Запускайте туннели мгновенно без создания аккаунта и настройки токенов авторизации.
+- **Без экранов-предупреждений**: В отличие от бесплатных тарифов Ngrok, здесь нет страницы-заглушки («Visit Site»), что делает тестирование вебхуков и внешних API стабильным и гладким.
+- **Без лимитов на трафик и запросы**: Туннелирование работает на инфраструктуре Cloudflare без ограничений скорости и лимитов на число обращений.
+- **Бесплатная защита туннеля**: Вы можете закрыть доступ к туннелю паролем (Basic Auth) или привязать личный домен без необходимости покупать платные подписки.
 
 ## Возможности
 
