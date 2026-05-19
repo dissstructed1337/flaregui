@@ -1,0 +1,33 @@
+{
+  "name": "flaregui",
+  "version": "1.0.0",
+  "description": "Free Ngrok alternative using Cloudflare Tunnels with a built-in Request Inspector",
+  "main": "server.js",
+  "bin": {
+    "flaregui": "./server.js"
+  },
+  "files": [
+    "server.js",
+    "ui/dist"
+  ],
+  "scripts": {
+    "build": "npm install --prefix ui && npm run build --prefix ui",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ngrok",
+    "cloudflare-tunnel",
+    "cloudflared",
+    "proxy",
+    "request-inspector"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "cloudflared": "^0.7.1",
+    "express": "^5.2.1",
+    "http-proxy": "^1.18.1",
+    "ws": "^8.20.1"
+  }
+}
