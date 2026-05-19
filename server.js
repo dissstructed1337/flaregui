@@ -305,12 +305,34 @@ server.listen(PROXY_PORT, () => {
     : ['cloudflared', 'tunnel', '--url', `http://localhost:${PROXY_PORT}`];
 
   const tunnel = spawn('npx', tunnelArgs, {
-    shell: true
+    shell: process.platform === 'win32'
   });
   
   tunnel.stderr.on('data', (data) => {
     const output = data.toString();
-    console.error(output.trim());
+    
+    // Фильтруем технические логи cloudflared при запуске
+    const lines = output.split('\n');
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+      
+      if (
+        trimmed.includes('INF Version') ||
+        trimmed.includes('INF GOOS') ||
+        trimmed.includes('INF Settings') ||
+        trimmed.includes('INF Autoupdate') ||
+        trimmed.includes('INF Generated Connector ID') ||
+        trimmed.includes('INF Initial protocol') ||
+        trimmed.includes('INF ICMP proxy') ||
+        trimmed.includes('INF Starting metrics server') ||
+        trimmed.includes('INF Tunnel connection curve preferences') ||
+        trimmed.includes('Cannot determine default configuration path')
+      ) {
+        continue;
+      }
+      console.error(trimmed);
+    }
     
     // Ищем публичный URL в логах Cloudflare
     const match = output.match(/https:\/\/[a-z0-9-]+\.trycloudflare\.com/);
