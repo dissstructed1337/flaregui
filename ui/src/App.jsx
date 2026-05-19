@@ -9,7 +9,7 @@ export default function App() {
   const [copiedCurl, setCopiedCurl] = useState(false);
 
   useEffect(() => {
-    // Подключаемся к нашему Node.js прокси
+    // Connect to our Node.js proxy
     const socket = new WebSocket('ws://localhost:4040');
     setWs(socket);
     
@@ -95,7 +95,7 @@ export default function App() {
 
   return (
     <div className="flex h-screen bg-zinc-950 text-zinc-100 font-sans selection:bg-indigo-500/30">
-      {/* Левая панель: Список запросов */}
+      {/* Left Panel: Request List */}
       <div className="w-80 border-r border-zinc-800 flex flex-col bg-zinc-950">
         <div className="p-4 border-b border-zinc-800 flex items-center justify-between">
           <button 
@@ -114,14 +114,14 @@ export default function App() {
           </button>
         </div>
 
-        {/* Поиск и Фильтры */}
+        {/* Search and Filters */}
         {requests.length > 0 && (
           <div className="p-3 border-b border-zinc-800 flex flex-col gap-2.5 bg-zinc-950/80 backdrop-blur">
             <div className="relative">
               <Search className="absolute left-2.5 top-2 text-zinc-500" size={14} />
               <input 
                 type="text" 
-                placeholder="Поиск URL..." 
+                placeholder="Search URLs..." 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full bg-zinc-900/50 border border-zinc-800 rounded pl-8 pr-2.5 py-1 text-xs focus:outline-none focus:border-indigo-500/80 font-mono transition-colors text-zinc-200"
@@ -155,7 +155,7 @@ export default function App() {
                       : 'bg-transparent text-zinc-500 border-transparent hover:text-zinc-300'
                   }`}
                 >
-                  {s === 'ALL' ? 'Любой статус' : s === 'SUCCESS' ? 'Успешные' : 'Ошибки'}
+                  {s === 'ALL' ? 'All statuses' : s === 'SUCCESS' ? 'Success' : 'Errors'}
                 </button>
               ))}
             </div>
@@ -166,7 +166,7 @@ export default function App() {
           {filteredRequests.length === 0 ? (
             <div className="p-8 text-center text-zinc-600 text-sm flex flex-col items-center gap-3 mt-10">
               <Globe size={24} className="opacity-50" />
-              {requests.length === 0 ? 'Ожидание запросов...' : 'Ничего не найдено'}
+              {requests.length === 0 ? 'Waiting for requests...' : 'No matches found'}
             </div>
           ) : (
             filteredRequests.map(req => (
@@ -215,7 +215,7 @@ export default function App() {
         </div>
       </div>
 
-      {/* Правая панель: Детали запроса */}
+      {/* Right Panel: Request Details */}
       <div className="flex-1 flex flex-col bg-[#09090b]">
         {selectedReq ? (
           <>
@@ -252,14 +252,14 @@ export default function App() {
                   title="Copy as cURL command"
                 >
                   {copiedCurl ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
-                  <span>{copiedCurl ? 'cURL скопирован!' : 'Скопировать cURL'}</span>
+                  <span>{copiedCurl ? 'cURL Copied!' : 'Copy as cURL'}</span>
                 </button>
                 <button
                   onClick={() => handleReplay(selectedReq.id)}
                   className="flex items-center gap-2 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white text-xs font-semibold rounded-md transition-colors shadow-lg shadow-indigo-600/15"
                 >
                   <Play size={14} className="fill-current" />
-                  Повторить запрос (Replay)
+                  Replay Request
                 </button>
               </div>
             </div>
@@ -357,7 +357,7 @@ export default function App() {
               </div>
               <div>
                 <h1 className="text-xl font-bold tracking-tight">FlareGUI Telemetry Dashboard</h1>
-                <p className="text-sm text-zinc-500">Статистика трафика и телеметрия в реальном времени</p>
+                <p className="text-sm text-zinc-500">Real-time traffic statistics and telemetry</p>
               </div>
             </div>
 
@@ -366,11 +366,11 @@ export default function App() {
               {tunnelUrl && (
                 <div className="bg-zinc-900/40 border border-zinc-800 p-5 rounded-xl flex items-center justify-between gap-6 md:col-span-3">
                   <div className="flex-1">
-                    <div className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-1">Адрес публичного туннеля</div>
+                    <div className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-1">Public Tunnel Address</div>
                     <a href={tunnelUrl} target="_blank" rel="noreferrer" className="text-indigo-400 hover:text-indigo-300 font-mono font-bold text-base break-all">
                       {tunnelUrl}
                     </a>
-                    <p className="text-xs text-zinc-500 mt-2">Используйте эту ссылку для отправки внешних запросов (вебхуков, мобильных тестов).</p>
+                    <p className="text-xs text-zinc-500 mt-2">Use this URL to receive external requests (webhooks, mobile tests, APIs).</p>
                   </div>
                   <div className="bg-white p-1 rounded-lg shrink-0 select-none shadow-md">
                     <img 
@@ -384,24 +384,24 @@ export default function App() {
 
               {/* Card 1: Total requests */}
               <div className="bg-zinc-900/50 border border-zinc-800 p-5 rounded-xl">
-                <div className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Всего запросов</div>
+                <div className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">Total Requests</div>
                 <div className="text-3xl font-bold font-mono text-zinc-100">{totalReqCount}</div>
-                <div className="mt-2 text-xs text-zinc-600">Накоплено в буфере истории</div>
+                <div className="mt-2 text-xs text-zinc-600">Stored in memory history buffer</div>
               </div>
 
               {/* Card 2: Average latency */}
               <div className="bg-zinc-900/50 border border-zinc-800 p-5 rounded-xl">
                 <div className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <Clock size={12} className="text-zinc-500" /> Среднее время ответа
+                  <Clock size={12} className="text-zinc-500" /> Average Latency
                 </div>
-                <div className="text-3xl font-bold font-mono text-zinc-100">{avgLatency} <span className="text-lg text-zinc-500 font-sans">мс</span></div>
-                <div className="mt-2 text-xs text-zinc-600">На основе {responseCount} ответов</div>
+                <div className="text-3xl font-bold font-mono text-zinc-100">{avgLatency} <span className="text-lg text-zinc-500 font-sans">ms</span></div>
+                <div className="mt-2 text-xs text-zinc-600">Based on {responseCount} responses</div>
               </div>
 
               {/* Card 3: Success rate */}
               <div className="bg-zinc-900/50 border border-zinc-800 p-5 rounded-xl">
                 <div className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <CheckCircle2 size={12} className="text-emerald-500" /> Доля успешных (2xx)
+                  <CheckCircle2 size={12} className="text-emerald-500" /> Success Rate (2xx)
                 </div>
                 <div className="text-3xl font-bold font-mono text-emerald-400">{successRate}%</div>
                 <div className="mt-3 w-full bg-zinc-800 rounded-full h-1.5 overflow-hidden">
@@ -414,15 +414,15 @@ export default function App() {
               <div className="border border-dashed border-zinc-800 rounded-xl p-12 text-center text-zinc-600 flex flex-col items-center gap-4">
                 <Globe size={32} className="opacity-35 animate-pulse" />
                 <div>
-                  <p className="font-semibold text-zinc-400">Ожидание первого HTTP-запроса...</p>
-                  <p className="text-xs text-zinc-500 mt-1">Отправьте запрос через ваш публичный URL туннеля</p>
+                  <p className="font-semibold text-zinc-400">Waiting for the first HTTP request...</p>
+                  <p className="text-xs text-zinc-500 mt-1">Send a request to your public tunnel URL to start logging</p>
                 </div>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* HTTP Methods distribution */}
                 <div className="bg-zinc-900/30 border border-zinc-800/80 p-6 rounded-xl">
-                  <h3 className="text-sm font-semibold text-zinc-400 mb-4">HTTP Методы</h3>
+                  <h3 className="text-sm font-semibold text-zinc-400 mb-4">HTTP Methods</h3>
                   <div className="space-y-3 font-mono">
                     {['GET', 'POST', 'PUT', 'DELETE'].map(m => {
                       const count = requests.filter(r => r.method === m).length;
@@ -453,16 +453,16 @@ export default function App() {
                 {/* Errors summary */}
                 <div className="bg-zinc-900/30 border border-zinc-800/80 p-6 rounded-xl">
                   <h3 className="text-sm font-semibold text-zinc-400 mb-4 flex items-center gap-1.5">
-                    <AlertTriangle size={14} className="text-amber-500" /> Ошибки
+                    <AlertTriangle size={14} className="text-amber-500" /> Errors
                   </h3>
                   {errorCount === 0 ? (
                     <div className="text-xs text-zinc-500 flex items-center gap-2 mt-4 bg-emerald-500/5 border border-emerald-500/10 p-3 rounded-lg">
                       <CheckCircle2 size={16} className="text-emerald-500" />
-                      <span>Ошибок в логах истории не зафиксировано!</span>
+                      <span>No errors detected in the history log!</span>
                     </div>
                   ) : (
                     <div className="space-y-3">
-                      <div className="text-xs text-zinc-500 mb-2">Найдено ошибок: <span className="text-red-400 font-bold font-mono">{errorCount}</span></div>
+                      <div className="text-xs text-zinc-500 mb-2">Error count: <span className="text-red-400 font-bold font-mono">{errorCount}</span></div>
                       <div className="max-h-36 overflow-y-auto space-y-1.5 pr-2">
                         {requestsWithResponse.filter(r => r.response.statusCode >= 400 || r.response.statusCode === 502).slice(0, 5).map(r => (
                           <div key={r.id} className="flex items-center justify-between text-[11px] bg-zinc-900 border border-zinc-800 p-2 rounded font-mono">
