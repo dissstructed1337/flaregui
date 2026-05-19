@@ -1,67 +1,75 @@
 # FlareGUI
 
-A lightweight CLI tool to tunnel localhost to the public web using Cloudflare Tunnels (trycloudflare) and inspect HTTP traffic in real-time. A free, zero-config ngrok alternative.
+<p align="left">
+  <a href="https://github.com/dissstructed1337/flaregui/releases"><img src="https://img.shields.io/github/v/release/dissstructed1337/flaregui?style=flat-square&color=blue" alt="Release"></a>
+  <a href="https://github.com/dissstructed1337/flaregui/blob/main/LICENSE"><img src="https://img.shields.io/github/license/dissstructed1337/flaregui?style=flat-square&color=yellow" alt="License"></a>
+  <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-%3E%3D18.0.0-blue?style=flat-square" alt="Node version"></a>
+</p>
+
+A lightweight CLI tool to tunnel localhost to the public web using Cloudflare Tunnels (trycloudflare) and inspect HTTP traffic in real-time. A free, zero-config alternative to Ngrok.
 
 ---
 
 ## Features
 
-- **Zero Config**: Instantly exposes localhost with a public URL. No signup or account required.
-- **Web Inspector**: Built-in React UI (`localhost:4040/inspect`) to view headers, query params, and body payloads.
-- **Replay & cURL**: Resend captured requests to your local server or copy them as cURL commands with one click.
-- **Telemetry**: View request counts, average latency (ms), response status distribution (2xx/4xx/5xx), and error logs.
-- **Basic Auth Protection**: Secure your public tunnel with `--auth user:password` while keeping the local inspector public.
-- **Custom Domains**: Use your own persistent Cloudflare Tunnel via `--token <token>`.
-- **Large Payload Safety**: Automatically caps logged payload previews at 2MB and handles binary formats (images, files) gracefully to prevent memory leaks.
-- **macOS Integration**: Auto-copies the tunnel URL to your clipboard and shows macOS system notifications upon success.
+- **Zero Configuration**: Instantly exposes local ports to a public URL. No signup, registration, or accounts required.
+- **Web Inspector**: Interactive React dashboard (`http://localhost:4040/inspect`) to view detailed headers, query parameters, and body payloads.
+- **Replay & cURL Integration**: Re-send captured requests directly from the dashboard or copy them as ready-to-run cURL commands in one click.
+- **Live Telemetry & Dashboard**: Real-time stats including total requests, average response latency, status distributions (2xx/4xx/5xx), and a dedicated error logger.
+- **Basic Authentication**: Lock public tunnel access with `--auth user:password` while keeping local inspector access completely open.
+- **Custom Persistent Domains**: Support for running persistent named tunnels using your own Cloudflare Tunnel credentials via `--token <token>`.
+- **Large Payload & Binary Protection**: Caps logs at 2MB to keep memory consumption low, and flags binary requests (images, uploads) gracefully to prevent terminal and browser stalls.
+- **Desktop Integrations**: Automatically copies the active tunnel URL to your clipboard and issues native macOS desktop notifications upon successful connection.
+
+---
 
 ## Quick Start
 
-Run the tunnel pointing to your local server (e.g., port 3000):
+Instantly expose a local server (e.g., running on port 3000) to the public web:
 
 ```bash
 npx flaregui --port 3000
 ```
 
-- The public tunnel URL will be automatically copied to your clipboard.
-- Open **[http://localhost:4040/inspect](http://localhost:4040/inspect)** to view the dashboard and QR code for mobile testing.
+1. The public URL will be copied to your clipboard automatically.
+2. Open **[http://localhost:4040/inspect](http://localhost:4040/inspect)** to monitor traffic or view the generated QR code for mobile testing.
+
+---
 
 ## CLI Options
 
-```text
-  Usage:
-    npx flaregui [options]
+| Option | Description | Default |
+| --- | --- | --- |
+| `-p, --port <number>` | Local port of the application you want to expose | `3000` |
+| `-i, --inspect <number>`| Port for the Web Inspector and proxy server | `4040` |
+| `-a, --auth <user:pass>` | Enable Basic Authentication to protect the public tunnel | — |
+| `-t, --token <string>` | Use your own custom Cloudflare Tunnel token | — |
+| `-h, --help` | Display CLI options and usage | — |
 
-  Options:
-    -p, --port <number>      Local port of your application (default: 3000)
-    -i, --inspect <number>   Port for the web inspector and proxy (default: 4040)
-    -a, --auth <user:pass>   Protect the tunnel with Basic Auth (e.g. admin:1234)
-    -t, --token <string>     Use your own Cloudflare Tunnel token
-    -h, --help               Show help
-```
+---
 
-## Local Development & Installation
+## Local Development & Source Installation
 
-For local development and running from source:
+If you want to contribute, modify the UI, or run directly from the source code:
 
-1. Clone the repository:
+1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/flaregui.git
+   git clone https://github.com/dissstructed1337/flaregui.git
    cd flaregui
    ```
-2. Install root dependencies:
+2. **Install core dependencies:**
    ```bash
    npm install
    ```
-3. Install UI dependencies and build UI static assets:
+3. **Build the dashboard UI assets:**
    ```bash
    npm run build
    ```
-4. Link the executable globally:
+4. **Link the CLI binary globally:**
    ```bash
    npm link
    ```
-5. Run the CLI:
+5. **Run the utility:**
    ```bash
    flaregui -p 3000
    ```
@@ -70,68 +78,70 @@ For local development and running from source:
 
 # FlareGUI (На русском)
 
-Легковесная CLI-утилита для туннелирования localhost в публичную сеть на базе Cloudflare Tunnels (trycloudflare) со встроенным инспектором HTTP-трафика. Бесплатная альтернатива ngrok, работающая без регистрации.
+Легковесная CLI-утилита для туннелирования localhost в публичную сеть на базе Cloudflare Tunnels (trycloudflare) со встроенным инспектором HTTP-трафика. Бесплатная альтернатива Ngrok, работающая без регистрации.
 
 ---
 
 ## Возможности
 
-- **Без настроек**: Мгновенно создает публичный адрес для локального порта. Аккаунт не требуется.
-- **Инспектор запросов**: Веб-панель (`localhost:4040/inspect`) для детального анализа заголовков, query-параметров и тела запросов.
-- **Replay и cURL**: Повторная отправка запросов на локальный сервер или копирование запроса в формате cURL в один клик.
-- **Телеметрия**: Общая статистика запросов, среднее время ответа (мс), распределение по HTTP-методам/статусам и журнал ошибок.
-- **Защита паролем**: Ограничение внешнего доступа к туннелю с помощью Basic Auth (`--auth user:pass`).
-- **Собственные домены**: Использование постоянных приватных туннелей Cloudflare с помощью флага `--token <token>`.
-- **Ограничение размера**: Лимит на логирование тела запроса/ответа до 2 МБ и определение бинарных данных (изображения, файлы) для защиты от перегрузки оперативной памяти.
-- **Интеграция с macOS**: Автоматическое копирование ссылки в буфер обмена и показ нативных системных уведомлений при запуске.
+- **Быстрый старт**: Публичный адрес генерируется мгновенно одной командой. Не требует создания аккаунта.
+- **Инспектор запросов**: Веб-панель (`http://localhost:4040/inspect`) для глубокого анализа заголовков, query-параметров и тела входящих запросов.
+- **Replay и экспорт в cURL**: Возможность повторной отправки любого перехваченного запроса на локальный сервер или его быстрого экспорта в виде cURL-команды в буфер обмена.
+- **Панель телеметрии (Dashboard)**: Наглядная статистика в реальном времени: общее число запросов, среднее время ответа (мс), графики распределения HTTP-методов и журнал ошибок.
+- **Basic Auth защита**: Ограничение внешнего публичного доступа к туннелю с помощью авторизации через флаг `--auth user:pass`.
+- **Собственные домены**: Поддержка постоянных приватных туннелей Cloudflare с использованием вашего токена через параметр `--token <token>`.
+- **Контроль памяти (Capping)**: Лимит логирования тела запросов/ответов до 2 МБ и автоопределение бинарных файлов (картинки, архивы) предотвращают перегрузку RAM.
+- **macOS интеграция**: Автокопирование сгенерированного адреса в буфер обмена и показ нативных системных уведомлений при успешном старте.
+
+---
 
 ## Быстрый старт
 
-Запустите туннель для локального порта (например, 3000):
+Откройте доступ к локальному серверу (например, на порту 3000):
 
 ```bash
 npx flaregui --port 3000
 ```
 
-- Публичный адрес автоматически скопируется в буфер обмена.
-- Панель инспектора и QR-код для тестов с телефона будут доступны по адресу: **[http://localhost:4040/inspect](http://localhost:4040/inspect)**.
+1. Сгенерированный публичный адрес автоматически скопируется в буфер обмена.
+2. Откройте инспектор по адресу **[http://localhost:4040/inspect](http://localhost:4040/inspect)** для анализа трафика и получения QR-кода для мобильных тестов.
 
-## Параметры командной строки (CLI Options)
+---
 
-```text
-  Использование:
-    npx flaregui [опции]
+## Параметры командной строки
 
-  Опции:
-    -p, --port <number>      Локальный порт вашего приложения (по умолчанию: 3000)
-    -i, --inspect <number>   Порт для веб-инспектора и прокси (по умолчанию: 4040)
-    -a, --auth <user:pass>   Защитить туннель паролем Basic Auth (пример: admin:1234)
-    -t, --token <string>     Использовать собственный токен туннеля Cloudflare
-    -h, --help               Показать справку
-```
+| Опция | Описание | По умолчанию |
+| --- | --- | --- |
+| `-p, --port <number>` | Локальный порт вашего приложения | `3000` |
+| `-i, --inspect <number>`| Порт для веб-инспектора и прокси | `4040` |
+| `-a, --auth <user:pass>` | Защитить публичный туннель паролем Basic Auth | — |
+| `-t, --token <string>` | Использовать токен вашего собственного туннеля | — |
+| `-h, --help` | Показать справку по доступным командам | — |
 
-## Установка и локальная разработка
+---
 
-Для локального запуска и разработки:
+## Разработка и сборка из исходников
 
-1. Клонируйте репозиторий:
+Для локального запуска и изменения проекта:
+
+1. **Клонируйте репозиторий:**
    ```bash
-   git clone https://github.com/your-username/flaregui.git
+   git clone https://github.com/dissstructed1337/flaregui.git
    cd flaregui
    ```
-2. Установите зависимости корневого проекта:
+2. **Установите основные зависимости:**
    ```bash
    npm install
    ```
-3. Соберите проект (установит зависимости фронтенда и скомпилирует бандл):
+3. **Соберите фронтенд-панель (React):**
    ```bash
    npm run build
    ```
-4. Создайте глобальную ссылку на исполняемый файл в системе:
+4. **Создайте глобальную символическую ссылку:**
    ```bash
    npm link
    ```
-5. Запустите утилиту:
+5. **Запустите утилиту:**
    ```bash
    flaregui -p 3000
    ```
