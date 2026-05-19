@@ -1,6 +1,6 @@
 {
   "name": "flaregui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Free Ngrok alternative using Cloudflare Tunnels with a built-in Request Inspector",
   "main": "server.js",
   "bin": {
