@@ -4,7 +4,7 @@
   "description": "Free Ngrok alternative using Cloudflare Tunnels with a built-in Request Inspector",
   "main": "server.js",
   "bin": {
-    "flaregui": "./server.js"
+    "flaregui": "server.js"
   },
   "files": [
     "server.js",
